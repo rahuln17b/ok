@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trashcan</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external stylesheet -->
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        header nav ul {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+        }
+
+        header nav ul li {
+            margin: 0 1rem;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: color 0.3s ease-in-out;
+        }
+
+        header nav ul li a:hover {
+            color: #ffeb3b;
+        }
+
+        section {
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #6a11cb;
+            text-align: center;
+        }
+
+        #post-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #post-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        #post-form input, #post-form select, #post-form textarea, #post-form button {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        #post-form button {
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        #post-form button:hover {
+            background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+        }
+
+        #browse-items {
+            background: #eef1ff;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        #item-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        #item-list .card {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: calc(33% - 1rem);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #item-list .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        #item-list .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #terms-conditions {
+            background: #f0f8ff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #terms-conditions p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        #leaderboard {
+            background: #f0f0f5;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #leaderboard ol {
+            padding-left: 2rem;
+        }
+
+        #leaderboard ol li {
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        #testimonials {
+            background: #eef8ff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #testimonials blockquote {
+            font-style: italic;
+            color: #555;
+            margin: 1rem 0;
+        }
+
+        #cta {
+            text-align: center;
+            background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+            padding: 2rem;
+            color: white;
+            border-radius: 8px;
+            margin-top: 2rem;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #cta button {
+            background: #fff;
+            color: #6a11cb;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        #cta button:hover {
+            background: #f7f7ff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        footer .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        footer .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer .social-icons a:hover {
+            color: #6a11cb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <h1>Trashcan</h1>
+            <ul>
+                <li><a href="#post-item">Post Item</a></li>
+                <li><a href="#browse-items">Browse Items</a></li>
+                <li><a href="#terms-conditions">Terms & Conditions</a></li>
+                <li><a href="#leaderboard">Leaderboard</a></li>
+                <li><a href="#testimonials">Customer Feedbacks</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Post an Item Section -->
+    <section id="post-item">
+        <h2>Post an Item</h2>
+        <form id="post-form">
+            <label for="item-name">Item Name:</label>
+            <input type="text" id="item-name" name="item-name" required>
+
+            <label for="item-category">Category:</label>
+            <select id="item-category" name="item-category">
+                <option value="electronics">Electronics</option>
+                <option value="furniture">Furniture</option>
+                <option value="clothing">Clothing</option>
+                <option value="tools">Tools</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="item-description">Description:</label>
+            <textarea id="item-description" name="item-description" rows="4"></textarea>
+
+            <label for="item-image">Upload Image:</label>
+            <input type="file" id="item-image" name="item-image" accept="image/*">
+
+            <label for="item-location">Location:</label>
+            <input type="text" id="item-location" name="item-location" placeholder="Enter city or zip code">
+
+            <button type="submit">Post Item</button>
+        </form>
+    </section>
+
+    <!-- Browse Items Section -->
+    <section id="browse-items">
+        <h2>Browse Items</h2>
+        <div id="item-list">
+            <div class="card">
+                <img src="https://via.placeholder.com/150" alt="Item Image">
+                <h3>Sample Item 1</h3>
+                <p>Category: Electronics</p>
+                <p>Location: New York</p>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/150" alt="Item Image">
+                <h3>Sample Item 2</h3>
+                <p>Category: Furniture</p>
+                <p>Location: Chicago</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms & Conditions Section -->
+    <section id="terms-conditions">
+        <h2>Terms & Conditions</h2>
+        <p>By using Bought The ODDS, you agree to the following terms:</p>
+        <p>1. All items posted must comply with local laws and regulations.</p>
+        <p>2. Users are responsible for the accuracy of the information provided in their listings.</p>
+        <p>3. The platform is not liable for any disputes or damages arising from transactions between users.</p>
+        <p>4. Items listed must not be prohibited or restricted by the platform's guidelines.</p>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section id="leaderboard">
+        <h2>Leaderboard</h2>
+        <ol>
+            <li>Ryan Gosling - 15 items sold</li>
+            <li>Ryan Reynolds - 12 items sold</li>
+            <li>Peter Parker - 10 items sold</li>
+        </ol>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <h2>Feedbacks</h2>
+        <blockquote>"This platform helped me find a great home for my unused furniture!" - Michael Jackson.</blockquote>
+        <blockquote>"Easy to use and great for the environment. Highly recommend!" - Elon Musk</blockquote>
+    </section>
+
+    <!-- Call-to-Action Section -->
+    <section id="cta">
+        <h2>Join the Movement</h2>
+        <p>Be a part of a sustainable future by buying, selling, or donating pre-loved items.</p>
+        <button>Get Started</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Trashcan</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
